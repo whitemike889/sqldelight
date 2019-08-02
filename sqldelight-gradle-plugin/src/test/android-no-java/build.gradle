@@ -1,0 +1,49 @@
+plugins {
+  id 'com.android.application'
+  id 'com.squareup.sqldelight'
+  id 'org.jetbrains.kotlin.android'
+}
+
+apply from: '../../../../gradle/dependencies.gradle'
+
+repositories {
+  maven {
+    url "file://${projectDir.absolutePath}/../../../../build/localMaven"
+  }
+  mavenCentral()
+  google()
+}
+
+dependencies {
+  implementation deps.kotlin.stdlib.jdk
+}
+
+sqldelight {
+  QueryWrapper {
+    
+  }
+}
+
+android {
+  compileSdkVersion versions.compileSdk
+
+  defaultConfig {
+    minSdkVersion versions.minSdk
+
+    testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
+  }
+
+  lintOptions {
+    textOutput 'stdout'
+    textReport true
+  }
+
+  packagingOptions {
+    exclude 'LICENSE.txt'
+  }
+
+  compileOptions {
+    targetCompatibility 1.8
+    sourceCompatibility 1.8
+  }
+}

@@ -144,4 +144,22 @@ class IntegrationTest {
     val result = runner.build()
     assertThat(result.output).contains("BUILD SUCCESSFUL")
   }
+
+  @Test
+  fun androidModule() {
+    val root = File("src/test/android-no-java")
+    val gradleRoot = File(root, "gradle").apply {
+      mkdir()
+    }
+    File("../gradle/wrapper").copyRecursively(File(gradleRoot, "wrapper"), true)
+
+    val runner = GradleRunner.create()
+        .forwardOutput()
+        .withProjectDir(root)
+        .withPluginClasspath()
+        .withArguments("clean", "assembleDebug", "--stacktrace")
+
+    val result = runner.build()
+    assertThat(result.output).contains("BUILD SUCCESSFUL")
+  }
 }
